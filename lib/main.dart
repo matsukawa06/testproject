@@ -1,7 +1,10 @@
+// import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final appNameProvider = Provider((ref) => 'Flutter Test');
+final counterProvider = StateProvider((ref) => 0);
 
 void main() {
   runApp(const ProviderScope(
@@ -24,49 +27,44 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// class MyHomePage extends StatefulWidget {
-//   const MyHomePage({Key? key, required this.title}) : super(key: key);
-//   final String title;
-
-//   @override
-//   State<MyHomePage> createState() => _MyHomePageState();
-// }
-
-class _MyHomePage extends ConsumerWidget {
-  // int _counter = 0;
-
-  // void _incrementCounter() {
-  //   setState(() {
-  //     _counter++;
-  //   });
-  // }
-
+class _MyHomePage extends StatelessWidget {
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final appName = ref.watch(appNameProvider);
+  Widget build(BuildContext context) {
+    // final _counter = ref.watch(counterProvider);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(appName),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          // children: <Widget>[
-          //   const Text(
-          //     'You have pushed the button this many times:',
-          //   ),
-          //   Text(
-          //     '$_counter',
-          //     style: Theme.of(context).textTheme.headline4,
-          //   ),
-          // ],
+        appBar: AppBar(
+          title: Consumer(builder: (context, ref, _) {
+            final appName = ref.watch(appNameProvider);
+            return Text(appName);
+          }),
         ),
-      ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: _incrementCounter,
-      //   tooltip: 'Increment',
-      //   child: const Icon(Icons.add),
-      // ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const Text(
+                'You have pushed the button this many times:',
+              ),
+              Consumer(builder: (context, ref, _) {
+                final _counter = ref.watch(counterProvider.state);
+                return Text(
+                  '$_counter',
+                  style: Theme.of(context).textTheme.headline4,
+                );
+              }),
+            ],
+          ),
+        ),
+        floatingActionButton: Consumer(builder: (context, ref, _) {
+          return FloatingActionButton(
+            onPressed: () {
+              ref.watch(counterProvider.state).state++;
+            },
+            tooltip: 'Increment',
+            child: const Icon(Icons.add),
+          );
+        })
+        // This trailing comma makes auto-formatting nicer for build methods.
+        );
   }
 }
