@@ -1,24 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final appNameProvider = Provider((ref) => 'Flutter Test');
-
-// テーマ変更用の状態クラス
-final themeProvider = ChangeNotifierProvider<MyTheme>(
-  (ref) => MyTheme(),
-);
-
-class MyTheme extends ChangeNotifier {
-  ThemeData current = ThemeData.light();
-  bool _isDark = false;
-
-  // とりあえずトグルでテーマを切り替える関数だけ定義する
-  toggle() {
-    _isDark = !_isDark;
-    current = _isDark ? ThemeData.dark() : ThemeData.light();
-    notifyListeners();
-  }
-}
+import 'provider.dart';
 
 void main() {
   runApp(const ProviderScope(
@@ -42,26 +25,9 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// 状態管理表示部分（Model側）を作る
-final counterProvider = ChangeNotifierProvider<CountModel>(
-  (ref) => CountModel(),
-);
-
-class CountModel extends ChangeNotifier {
-  int state = 0;
-
-  void incrementCounter() {
-    state++;
-    notifyListeners();
-  }
-}
-
 class _MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // final _counter = ref.watch(counterProvider);
-    // Modelを読み込み
-    // final countModel = context.read(counterProvider);
     return Scaffold(
       appBar: AppBar(
         title: Consumer(builder: (context, ref, _) {
@@ -86,11 +52,12 @@ class _MyHomePage extends StatelessWidget {
             Consumer(builder: (context, ref, _) {
               final myTheme = ref.watch(themeProvider);
               return SwitchListTile(
-                  value: myTheme._isDark,
-                  title: const Text('ダークモード'),
-                  onChanged: (bool value) {
-                    myTheme.toggle();
-                  });
+                value: myTheme.isDark,
+                title: const Text('ダークモード'),
+                onChanged: (bool value) {
+                  myTheme.toggle();
+                },
+              );
             }),
           ],
         ),
