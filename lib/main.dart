@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'provider.dart';
@@ -18,7 +19,10 @@ class MyApp extends StatelessWidget {
       final myTheme = ref.watch(themeProvider);
       return MaterialApp(
         title: 'Flutter Demo',
-        theme: myTheme.current,
+        theme: ThemeData(
+          primarySwatch: myTheme.primarySwatch,
+          brightness: myTheme.brightness,
+        ),
         home: _MyHomePage(),
       );
     });
@@ -51,12 +55,51 @@ class _MyHomePage extends StatelessWidget {
             }),
             Consumer(builder: (context, ref, _) {
               final myTheme = ref.watch(themeProvider);
-              return SwitchListTile(
-                value: myTheme.isDark,
-                title: const Text('ダークモード'),
-                onChanged: (bool value) {
-                  myTheme.toggle();
-                },
+              return Column(
+                children: [
+                  SwitchListTile(
+                    value: myTheme.isDark,
+                    title: const Text('ダークモード'),
+                    onChanged: (bool value) {
+                      myTheme.brightnessToggle();
+                    },
+                  ),
+                  SwitchListTile(
+                    value: myTheme.isColor,
+                    title: const Text('カラー変更'),
+                    onChanged: (bool value) {
+                      myTheme.primarySwatchToggle();
+                    },
+                  ),
+                  // MaterialPickerをここに追加予定
+                  // showDialog(context: context, child: AlertDialog()),
+                  TextButton(
+                    onPressed: () async {
+                      await showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text('カラー選択'),
+                            content: MaterialPicker(
+                              pickerColor: myTheme.pickerColor,
+                              onColorChanged: myTheme.changeColor,
+                            ),
+                            actions: <Widget>[
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: const Text('決定'),
+                              )
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    child: const Text('カラー変更'),
+                  ),
+                ],
               );
             }),
           ],

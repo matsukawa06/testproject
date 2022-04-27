@@ -3,24 +3,44 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final appNameProvider = Provider((ref) => 'Flutter Test');
 
-// テーマ変更用の状態クラス
+///
+/// テーマ変更用の状態クラス
+///
 final themeProvider = ChangeNotifierProvider<MyTheme>(
   (ref) => MyTheme(),
 );
 
 class MyTheme extends ChangeNotifier {
-  ThemeData current = ThemeData.light();
+  // ThemeData current = ThemeData.light();
+  Brightness brightness = Brightness.light;
   bool isDark = false;
+  var primarySwatch = Colors.blue;
+  bool isColor = false;
+
+  Color pickerColor = Colors.blue;
 
   // とりあえずトグルでテーマを切り替える関数だけ定義する
-  toggle() {
+  brightnessToggle() {
     isDark = !isDark;
-    current = isDark ? ThemeData.dark() : ThemeData.light();
+    // current = isDark ? ThemeData.dark() : ThemeData.light();
+    brightness = isDark ? Brightness.dark : Brightness.light;
     notifyListeners();
+  }
+
+  primarySwatchToggle() {
+    isColor = !isColor;
+    primarySwatch = isColor ? Colors.red : Colors.blue;
+    notifyListeners();
+  }
+
+  changeColor(Color color) {
+    pickerColor = color;
   }
 }
 
-// 状態管理表示部分（Model側）を作る
+///
+/// 状態管理表示部分（Model側）を作る
+///
 final counterProvider = ChangeNotifierProvider<CountModel>(
   (ref) => CountModel(),
 );
