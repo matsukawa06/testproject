@@ -1,0 +1,15 @@
+{
+    // ツリー構造のガイドを表示する
+    "dart.previewFlutterUiGuides": true,
+    // 以下はオプション
+    "dart.previewFlutterUiGuidesCustomTracking": true,
+    "dart.closingLabels": false,
+    // ①コード整形の場合
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        // ②コード修正の場合
+        "source.fixAll": true,
+        // ③importの順番整理の場合
+        "source.organizeImports": true,
+    },
+}
