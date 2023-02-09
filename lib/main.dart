@@ -42,33 +42,32 @@ class _MyHomePage extends StatelessWidget {
       body: Center(
         child: Column(
           children: <Widget>[
-            Card(
-              child: ListTile(
-                title: const Text('カラー、ダークモードの変更'),
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) {
-                      return const ColorChangePage();
-                    }),
-                  );
-                },
-              ),
-            ),
+            _pageRoute(context, 'カラー、ダークモードの変更', 1),
           ],
         ),
       ),
     );
   }
 
-  Widget _pageRoute(BuildContext context) {
+  Widget _pageRoute(BuildContext context, String titleText, int no) {
     return Card(
       child: ListTile(
-        title: const Text('カラー、ダークモードの変更'),
+        title: Text(titleText),
         onTap: () {
           Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) {
-              return const ColorChangePage();
-            }),
+            MaterialPageRoute(
+              builder: (context) {
+                switch (no) {
+                  case 1:
+                    // カラーの変更ページ
+                    return const ColorChangePage();
+                  case 2:
+
+                  default:
+                    return Container();
+                }
+              },
+            ),
           );
         },
       ),
