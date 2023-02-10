@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:testproject/color_change.dart';
+import 'package:testproject/color_change_page/color_change.dart';
 
 import 'provider.dart';
 
