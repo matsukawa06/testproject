@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MoveWidgetPage extends StatelessWidget {
   const MoveWidgetPage({Key? key}) : super(key: key);
@@ -8,6 +7,7 @@ class MoveWidgetPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       appBar: _AppBar(),
+      body: BodyWidget(),
     );
   }
 }
@@ -38,10 +38,27 @@ class BodyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer(
-      builder: (context, ref, _) {
-        return Container();
-      },
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Container(
+            child: const Text('ここからドラッグ'),
+            color: Colors.red,
+            alignment: Alignment.center,
+            width: 300,
+            height: 50,
+          ),
+          const SizedBox(height: 100),
+          Container(
+            child: const Text('ここにドロップ'),
+            color: Colors.grey.withOpacity(0.5),
+            alignment: Alignment.center,
+            width: 300,
+            height: 50,
+          ),
+        ],
+      ),
     );
   }
 }
