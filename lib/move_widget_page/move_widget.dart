@@ -5,32 +5,33 @@ class MoveWidgetPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: _AppBar(),
-      body: BodyWidget(),
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0.0,
+        title: const Text('Widgetを自由に動かす'),
+      ),
+      body: const BodyWidget(),
     );
   }
 }
 
-/// AppBar部
-class _AppBar extends StatelessWidget with PreferredSizeWidget {
-  const _AppBar({Key? key}) : super(key: key);
+// /// AppBar部
+// class _AppBar extends StatelessWidget {
+//   const _AppBar({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder(
-      builder: (context, snapshot) {
-        return AppBar(
-          elevation: 0.0, // 境界線を消す
-          title: const Text('Widgetを自由に動かす'),
-        );
-      },
-    );
-  }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return FutureBuilder(
+//       builder: (context, snapshot) {
+//         return AppBar(
+//           elevation: 0.0, // 境界線を消す
+//           title: const Text('Widgetを自由に動かす'),
+//         );
+//       },
+//       future: null,
+//     );
+//   }
+// }
 
 /// body部
 class BodyWidget extends StatelessWidget {

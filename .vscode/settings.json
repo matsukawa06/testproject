@@ -7,9 +7,7 @@
     // ①コード整形の場合
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
-        // ②コード修正の場合
-        "source.fixAll": true,
-        // ③importの順番整理の場合
-        "source.organizeImports": true,
+        "source.fixAll": "explicit",
+        "source.organizeImports": "explicit"
     },
 }

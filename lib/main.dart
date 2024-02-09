@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:testproject/animation_page/animation_page.dart';
 import 'package:testproject/color_change_page/color_change.dart';
 import 'package:testproject/move_widget_page/move_widget.dart';
 
@@ -45,6 +46,7 @@ class _MyHomePage extends StatelessWidget {
           children: <Widget>[
             _pageRoute(context, 'カラー、ダークモードの変更', 1),
             _pageRoute(context, 'Widgetを自由に動かす', 2),
+            _pageRoute(context, 'Widgetをアニメーション', 3),
           ],
         ),
       ),
@@ -65,6 +67,8 @@ class _MyHomePage extends StatelessWidget {
                     return const ColorChangePage();
                   case 2:
                     return const MoveWidgetPage();
+                  case 3:
+                    return const AnimationPage();
                   default:
                     return Container();
                 }

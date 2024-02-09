@@ -53,3 +53,24 @@ class CountModel extends ChangeNotifier {
     notifyListeners();
   }
 }
+
+///
+/// アニメーションのProvider
+///
+final animationProvider = ChangeNotifierProvider<AnimationModel>(
+  (ref) => AnimationModel(),
+);
+
+class AnimationModel extends ChangeNotifier {
+  double dblHeight = 100;
+
+  void onClickedInit() {
+    dblHeight = 100;
+    notifyListeners();
+  }
+
+  void onClickedAction() {
+    dblHeight = 0;
+    notifyListeners();
+  }
+}
